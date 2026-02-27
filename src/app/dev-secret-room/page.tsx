@@ -72,8 +72,8 @@ export default function DevSecretRoom() {
     ];
 
     return (
-        <div className="h-screen overflow-y-auto">
-            <div className="max-w-2xl mx-auto p-6 pb-24">
+        <div className="h-screen w-screen overflow-y-auto flex justify-center items-center">
+            <div className="w-full max-w-2xl p-6 pt-20 pb-24 border border-transparent">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
