@@ -1,0 +1,9 @@
+# robots.txt for DAKSHH CYBER ROOMS
+# 🔐 CTF Hint: Check the Disallow entries carefully...
+
+User-agent: *
+Allow: /
+
+# Hidden areas - nothing to see here...
+Disallow: /dev-secret-room
+# Hint: Why would we disallow something that doesn't exist? ;)

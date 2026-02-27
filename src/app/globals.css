@@ -1,26 +1,319 @@
 @import "tailwindcss";
 
+/* ============================================
+   DAKSHH CYBER ROOMS — Global Cyberpunk Theme
+   ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --neon-cyan: #00f0ff;
+  --neon-magenta: #ff00e5;
+  --neon-green: #39ff14;
+  --neon-yellow: #f0ff00;
+  --neon-red: #ff073a;
+  --cyber-dark: #0a0a0f;
+  --cyber-darker: #050508;
+  --cyber-card: rgba(15, 15, 25, 0.85);
+  --cyber-border: rgba(0, 240, 255, 0.15);
+  --cyber-glass: rgba(10, 10, 20, 0.6);
+  --text-primary: #e0e0ff;
+  --text-secondary: #8888aa;
+  --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.4), 0 0 40px rgba(0, 240, 255, 0.1);
+  --glow-magenta: 0 0 20px rgba(255, 0, 229, 0.4), 0 0 40px rgba(255, 0, 229, 0.1);
+  --glow-green: 0 0 20px rgba(57, 255, 20, 0.4), 0 0 40px rgba(57, 255, 20, 0.1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Terminal theme override */
+[data-theme="terminal"] {
+  --neon-cyan: #39ff14;
+  --neon-magenta: #39ff14;
+  --neon-green: #39ff14;
+  --cyber-dark: #000000;
+  --cyber-darker: #000000;
+  --cyber-card: rgba(0, 10, 0, 0.9);
+  --cyber-border: rgba(57, 255, 20, 0.2);
+  --text-primary: #39ff14;
+  --text-secondary: #1a8a0a;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  overflow: hidden;
+  background: var(--cyber-darker);
+  color: var(--text-primary);
+  font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cyber-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--neon-cyan);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-magenta);
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 240, 255, 0.3);
+  color: white;
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes pulse-neon {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.3; }
+  94% { opacity: 1; }
+  96% { opacity: 0.5; }
+  97% { opacity: 1; }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: var(--neon-cyan); }
+}
+
+@keyframes cyber-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes matrix-rain {
+  0% { transform: translateY(-100%); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.animate-glitch { animation: glitch 0.3s ease-in-out; }
+.animate-pulse-neon { animation: pulse-neon 2s ease-in-out infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-flicker { animation: flicker 4s linear infinite; }
+
+/* ============================================
+   Glassmorphism Panels
+   ============================================ */
+
+.glass-panel {
+  background: var(--cyber-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--cyber-border);
+  border-radius: 12px;
+}
+
+.glass-card {
+  background: var(--cyber-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--cyber-border);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+/* ============================================
+   Neon Text Effects
+   ============================================ */
+
+.neon-text {
+  color: var(--neon-cyan);
+  text-shadow:
+    0 0 7px var(--neon-cyan),
+    0 0 10px var(--neon-cyan),
+    0 0 21px var(--neon-cyan),
+    0 0 42px var(--neon-cyan);
+}
+
+.neon-text-magenta {
+  color: var(--neon-magenta);
+  text-shadow:
+    0 0 7px var(--neon-magenta),
+    0 0 10px var(--neon-magenta),
+    0 0 21px var(--neon-magenta);
+}
+
+.neon-text-green {
+  color: var(--neon-green);
+  text-shadow:
+    0 0 7px var(--neon-green),
+    0 0 10px var(--neon-green),
+    0 0 21px var(--neon-green);
+}
+
+/* ============================================
+   Cyber Buttons
+   ============================================ */
+
+.cyber-button {
+  position: relative;
+  padding: 12px 24px;
+  background: transparent;
+  border: 1px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  font-family: inherit;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.cyber-button:hover {
+  background: rgba(0, 240, 255, 0.1);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-2px);
+}
+
+.cyber-button:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   Scanline Overlay
+   ============================================ */
+
+.scanlines::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+/* ============================================
+   Custom Cursor
+   ============================================ */
+
+.custom-cursor {
+  cursor: none;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--neon-cyan);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.1s ease;
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+}
+
+.cursor-ring {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--neon-cyan);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  transition: all 0.15s ease;
+}
+
+/* ============================================
+   Room-specific CSS (Room 5 — CSS Illusion Room)
+   Hidden flag parts in CSS custom properties
+   ============================================ */
+
+/* 
+  🔐 CTF HINT: Part of the flag is hidden in CSS variables below.
+  Intended solve: Inspect CSS custom properties in DevTools.
+  Security lesson: CSS variables are visible to anyone with DevTools.
+*/
+.css-illusion-room {
+  --flag-part-1: "dakshh{";
+  --flag-part-2: "css_never";
+  --flag-part-3: "_lies}";
+}
+
+/* Hidden in a pseudo-element */
+.css-hidden-flag::after {
+  content: "css_never_lies";
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  font-size: 0;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.text-gradient-cyber {
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.border-glow {
+  border: 1px solid var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
 }
